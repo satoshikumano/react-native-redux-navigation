@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { loginStart, loginDone, loginError } from './Action';
 import Home from './Home';
@@ -9,9 +9,10 @@ class Login extends React.Component {
     super(props); 
   }
 
-  async loginAsync(dispatch, username, password) {
+  async loginAsync(dispatch) {
     dispatch(loginStart());
     try {
+      const {username, password} = this.state;
       const user = await this.login(username, password);
       dispatch(loginDone(user.token, user.id));
       dispatch({type: "NAV_LOGIN"});
@@ -48,7 +49,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const {isRunning, token, dispatch} = this.props;
+    const {isRunning, token, errorMessage, dispatch} = this.props;
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -61,7 +62,7 @@ class Login extends React.Component {
         <TextInput
           style={{height: 40}}
           placeholder="Username"
-          onChangeText={(loginName) => this.setState({loginName})}
+          onChangeText={(username) => this.setState({username})}
         />
         <Text>Password</Text>
         <TextInput
@@ -71,9 +72,10 @@ class Login extends React.Component {
           onChangeText={(password) => this.setState({password})}
         />
         <Button
-          onPress={() => this.loginAsync(dispatch,this.state.loginName, this.state.password) }
+          onPress={ () => this.loginAsync(dispatch) }
           title="Login"
         />
+        <Text>{errorMessage}</Text>
       </View>
     )
   }
@@ -93,6 +95,7 @@ function mapStateToProps(state, ownProps) {
     ...ownProps,
     isRunning: state.loginState.isRunning,
     token: state.loginState.token,
+    errorMessage: state.loginState.errorMessage,
   }
 }
 
