@@ -1,24 +1,68 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Login from './Login';
-import { Provider } from 'react-redux';
+import { AppRegistry, StyleSheet, Text, View } from 'react-native';
+import { Provider, connect } from 'react-redux';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { login } from './Reducer';
+import { navReducer, initialState } from './NavigationReducer';
 import thunk from 'redux-thunk';
+import {
+  createReduxBoundAddListener,
+  createReactNavigationReduxMiddleware,
+} from 'react-navigation-redux-helpers';
+import RootStack from './RootStack';
+import { addNavigationHelpers, NavigationActions } from "react-navigation";
 
-const rootReducer = combineReducers({loginState: login});
+const navMiddleware = createReactNavigationReduxMiddleware(
+  "root",
+  state => state.nav,
+);
+
+const addListener = createReduxBoundAddListener("root");
+
+const rootReducer = combineReducers(
+  {
+    loginState: login,
+    nav: navReducer,
+  }
+);
+
+class App extends React.Component {
+  render() {
+    return (
+      <RootStack navigation={addNavigationHelpers({
+        dispatch: this.props.dispatch,
+        state: this.props.nav,
+        addListener,
+      })} />
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  nav: state.nav
+});
+
+const AppWithNavigationState = connect(mapStateToProps)(App);
+
 const store = createStore(
   rootReducer,
-  {loginState: {isRunning:false}},
-  applyMiddleware(thunk);
+  {
+    loginState: {isRunning:false},
+    nav: initialState,
+  },
+  applyMiddleware(thunk, navMiddleware),
 );
-export default class App extends React.Component {
+
+class Root extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Login />
+        <AppWithNavigationState />
       </Provider>
     );
   }
 }
 
+AppRegistry.registerComponent('Login-Redux', () => Root);
+
+export default Root;
