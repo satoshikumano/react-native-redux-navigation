@@ -2,7 +2,7 @@ import React from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import { Provider, connect } from 'react-redux';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { login } from './Reducer';
+import { login } from './LoginReducer';
 import { navReducer, initialState } from './NavigationReducer';
 import thunk from 'redux-thunk';
 import {
