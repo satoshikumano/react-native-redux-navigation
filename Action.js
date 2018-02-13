@@ -4,10 +4,11 @@ export function loginStart() {
   }
 }
 
-export function loginDone(token) {
+export function loginDone(token, id) {
   return {
     type: "LOGIN_DONE",
-    token
+    token,
+    id
   }
 }
 

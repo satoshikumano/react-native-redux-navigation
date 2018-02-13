@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 
 class Home extends React.Component {
   render() {
-    const {dispatch} = this.props;
+    const {id, dispatch} = this.props;
     return (
       <View style={styles.container}>
         <Text>Home Screen</Text>
+        <Text>User ID: {id}</Text>
         <Button
           title="Logout"
           onPress={() => dispatch({type:"NAV_LOGOUT"})}
@@ -17,7 +18,13 @@ class Home extends React.Component {
   }
 }
 
-export default connect()(Home);
+function mapStateToProps(state, ownProps) {
+  return {
+    ...ownProps,
+    id: state.loginState.id,
+  }
+}
+export default connect(mapStateToProps)(Home);
 
 const styles = StyleSheet.create({
   container: {

@@ -9,6 +9,7 @@ export function login(loginState = {}, action) {
     return {
       ...loginState,
       token: action.token,
+      id: action.id,
       isRunning: false
     }
   }
