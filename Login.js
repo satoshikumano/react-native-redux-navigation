@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { loginStart, loginDone } from './Action';
+import Home from './Home';
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,13 +11,17 @@ class Login extends React.Component {
 
   loginAsync(dispatch) {
     dispatch(loginStart());
+    // Dummy.
     setTimeout(() => {
-      dispatch(loginDone());
+      dispatch(loginDone('token'));
     }, 2000);
   }
 
   render() {
-    const {isRunning, dispatch} = this.props;
+    const {isRunning, token, dispatch} = this.props;
+    if (token) {
+      return <Home/>
+    }
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -59,7 +64,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
-    isRunning: state.loginState.isRunning
+    isRunning: state.loginState.isRunning,
+    token: state.loginState.token,
   }
 }
 
