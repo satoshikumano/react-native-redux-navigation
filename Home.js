@@ -1,19 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, Button, View } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   render() {
+    const {dispatch} = this.props;
     return (
       <View style={styles.container}>
         <Text>Home Screen</Text>
         <Button
           title="Logout"
-          onPress={() => this.props.navigation.replace("LOGIN")}
+          onPress={() => dispatch({type:"NAV_LOGOUT"})}
         />
       </View>
     );
   }
 }
+
+export default connect()(Home);
 
 const styles = StyleSheet.create({
   container: {

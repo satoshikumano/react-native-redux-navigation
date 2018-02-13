@@ -14,14 +14,12 @@ class Login extends React.Component {
     // Dummy.
     setTimeout(() => {
       dispatch(loginDone('token'));
+      dispatch({type: "NAV_LOGIN"});
     }, 2000);
   }
 
   render() {
     const {isRunning, token, dispatch} = this.props;
-    if (token) {
-      return <Home/>
-    }
     return (
       <View style={styles.container}>
         <ActivityIndicator
