@@ -1,9 +1,8 @@
 import React from 'react'
-import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as loginActionCreators from './LoginActionCreators'
-import Home from './Home'
 
 class Login extends React.Component {
   constructor (props) {
@@ -11,7 +10,7 @@ class Login extends React.Component {
   }
 
   render () {
-    const {isRunning, token, errorMessage, actions} = this.props
+    const {isRunning, errorMessage, actions} = this.props
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -56,7 +55,6 @@ function mapStateToProps (state, ownProps) {
   return {
     ...ownProps,
     isRunning: state.loginState.isRunning,
-    token: state.loginState.token,
     errorMessage: state.loginState.errorMessage
   }
 }
