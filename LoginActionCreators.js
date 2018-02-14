@@ -45,7 +45,7 @@ export function navLogout () {
 }
 
 async function login (username, password) {
-  let grant_type = 'password'
+  let grantType = 'password'
   const response = await fetch('https://api-jp.kii.com/api/apps/dc0y34o1f8vf/oauth2/token', {
     method: 'POST',
     headers: {
@@ -54,7 +54,7 @@ async function login (username, password) {
       'X-Kii-Appkey': 'bb0b232c4ec64a34a7d08256a45bee66'
     },
     body: JSON.stringify({
-      grant_type,
+      grant_type: grantType,
       username,
       password
     })
