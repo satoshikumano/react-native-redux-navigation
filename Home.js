@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, Button, View } from 'react-native';
 import { connect } from 'react-redux';
+import { navLogout } from './LoginActionCreators';
 
 class Home extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class Home extends React.Component {
         <Text>User ID: {id}</Text>
         <Button
           title="Logout"
-          onPress={() => dispatch({type:"NAV_LOGOUT"})}
+          onPress={() => dispatch(navLogout())}
         />
       </View>
     );
