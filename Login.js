@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { loginStart, loginDone, loginError } from './ActionCreators';
+import { loginStart, loginDone, loginError } from './LoginActionCreators';
 import Home from './Home';
 
 class Login extends React.Component {
