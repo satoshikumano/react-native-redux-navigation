@@ -19,16 +19,28 @@ export function loginError(errorMessage) {
   }
 }
 
-export function lognAsync(username, password) {
+export function loginAsync(username, password) {
   return async (dispatch) => {
     dispatch(loginStart());
     try {
-      const user = await this.login(username, password);
+      const user = await login(username, password);
       dispatch(loginDone(user.token, user.id));
-      dispatch({type: "NAV_LOGIN"});
+      dispatch(navLogin());
     } catch (err) {
       dispatch(loginError(err.message));
     }
+  }
+}
+
+export function navLogin() {
+  return {
+    type: "NAV_LOGIN"
+  }
+}
+
+export function navLogout() {
+  return {
+    type: "NAV_LOGOUT"
   }
 }
 
@@ -50,12 +62,11 @@ async function login (username, password) {
   });
   if (200 <= response.status && response.status < 300) {
     const json = await response.json();
-    console.log(JSON.stringify(json));
     return {
       token: json.access_token,
-      id: json.id,
+      id: json.id
     };
-    } else {
-      throw new Error("Failed to login: " + response.status);
-    }
+  } else {
+    throw new Error("Failed to login: " + response.status);
   }
+}

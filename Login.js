@@ -1,7 +1,8 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { loginStart, loginDone, loginError } from './LoginActionCreators';
+import { bindActionCreators } from 'redux';
+import * as loginActionCreators from './LoginActionCreators';
 import Home from './Home';
 
 class Login extends React.Component {
@@ -10,7 +11,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const {isRunning, token, errorMessage, dispatch} = this.props;
+    const {isRunning, token, errorMessage, actions} = this.props;
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -33,7 +34,7 @@ class Login extends React.Component {
           onChangeText={(password) => this.setState({password})}
         />
         <Button
-          onPress={ () => this.loginAsync(dispatch) }
+        onPress={ () => actions.loginAsync(this.state.username, this.state.password) }
           title="Login"
         />
         <Text>{errorMessage}</Text>
@@ -60,4 +61,8 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(Login);
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(loginActionCreators, dispatch) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
