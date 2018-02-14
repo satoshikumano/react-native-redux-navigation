@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppRegistry, StyleSheet, Text, View } from 'react-native'
+import { AppRegistry } from 'react-native'
 import { Provider, connect } from 'react-redux'
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { login } from './LoginReducers'
@@ -10,7 +10,7 @@ import {
   createReactNavigationReduxMiddleware
 } from 'react-navigation-redux-helpers'
 import RootStack from './RootStack'
-import { addNavigationHelpers, NavigationActions } from 'react-navigation'
+import { addNavigationHelpers } from 'react-navigation'
 
 const navMiddleware = createReactNavigationReduxMiddleware(
   'root',
