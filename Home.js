@@ -1,11 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, Button, View } from 'react-native';
-import { connect } from 'react-redux';
-import { navLogout } from './LoginActionCreators';
+import React from 'react'
+import { StyleSheet, Text, Button, View } from 'react-native'
+import { connect } from 'react-redux'
+import { navLogout } from './LoginActionCreators'
 
 class Home extends React.Component {
-  render() {
-    const {id, dispatch} = this.props;
+  render () {
+    const {id, dispatch} = this.props
     return (
       <View style={styles.container}>
         <Text>Home Screen</Text>
@@ -15,24 +15,23 @@ class Home extends React.Component {
           onPress={() => dispatch(navLogout())}
         />
       </View>
-    );
+    )
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps (state, ownProps) {
   return {
     ...ownProps,
-    id: state.loginState.id,
+    id: state.loginState.id
   }
 }
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Home)
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
+    justifyContent: 'center'
+  }
+})
