@@ -1,51 +1,12 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { loginStart, loginDone, loginError } from './Action';
+import { loginStart, loginDone, loginError } from './ActionCreators';
 import Home from './Home';
 
 class Login extends React.Component {
   constructor(props) {
     super(props); 
-  }
-
-  async loginAsync(dispatch) {
-    dispatch(loginStart());
-    try {
-      const {username, password} = this.state;
-      const user = await this.login(username, password);
-      dispatch(loginDone(user.token, user.id));
-      dispatch({type: "NAV_LOGIN"});
-    } catch (err) {
-      dispatch(loginError(err.message));
-    }
-  }
-
-  async login (username, password) {
-    let grant_type = 'password';
-    const response = await fetch('https://api-jp.kii.com/api/apps/dc0y34o1f8vf/oauth2/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Kii-Appid' : 'dc0y34o1f8vf',
-          'X-Kii-Appkey' : 'bb0b232c4ec64a34a7d08256a45bee66'
-        },
-        body: JSON.stringify({
-            grant_type,
-            username,
-            password
-        }),
-    });
-    if (200 <= response.status && response.status < 300) {
-      const json = await response.json();
-      console.log(JSON.stringify(json));
-      return {
-        token: json.access_token,
-        id: json.id,
-      };
-    } else {
-      throw new Error("Failed to login: " + response.status);
-    }
   }
 
   render() {
