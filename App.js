@@ -2,8 +2,8 @@ import React from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import { Provider, connect } from 'react-redux';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { login } from './LoginReducer';
-import { navReducer, initialState } from './NavigationReducer';
+import { login } from './LoginReducers';
+import { navReducer, initialState } from './NavigationReducers';
 import thunk from 'redux-thunk';
 import {
   createReduxBoundAddListener,
