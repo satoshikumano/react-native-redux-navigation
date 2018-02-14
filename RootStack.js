@@ -1,14 +1,14 @@
-import React from 'react';
-import { StackNavigator } from 'react-navigation';
-import Login from './Login';
-import Home from './Home';
+import React from 'react'
+import { StackNavigator } from 'react-navigation'
+import Login from './Login'
+import Home from './Home'
 
 const RootStack = StackNavigator(
   {
-    LOGIN : {
+    LOGIN: {
       screen: Login
     },
-    HOME : {
+    HOME: {
       screen: Home
     }
   },
@@ -17,4 +17,4 @@ const RootStack = StackNavigator(
   }
 )
 
-export default RootStack;
+export default RootStack
