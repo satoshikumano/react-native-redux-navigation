@@ -3,5 +3,6 @@
     "rules": {
         "react/prop-types" : [0],
         "no-useless-constructor" : [0]
-    }
+    },
+    "globals": {"fetch": false}
 }
