@@ -1,13 +1,12 @@
-import RootStack from './RootStack';
-import { NavigationActions } from 'react-navigation';
+import RootStack from './RootStack'
+import { NavigationActions } from 'react-navigation'
 
-
-export const initialState = RootStack.router.getStateForAction(RootStack.router.getActionForPathAndParams('LOGIN'));
+export const initialState = RootStack.router.getStateForAction(RootStack.router.getActionForPathAndParams('LOGIN'))
 
 export const navReducer = (state = initialState, action) => {
   let nextState
 
-  if (action.type === "NAV_LOGIN") {
+  if (action.type === 'NAV_LOGIN') {
     nextState = RootStack.router.getStateForAction(
       NavigationActions.reset(
         {
@@ -16,9 +15,9 @@ export const navReducer = (state = initialState, action) => {
         }
       ),
       state
-    );
+    )
   }
-  if (action.type === "NAV_LOGOUT") {
+  if (action.type === 'NAV_LOGOUT') {
     nextState = RootStack.router.getStateForAction(
       NavigationActions.reset(
         {
@@ -27,8 +26,7 @@ export const navReducer = (state = initialState, action) => {
         }
       ),
       state
-    );
+    )
   }
-  return nextState || state;
-};
-
+  return nextState || state
+}

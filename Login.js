@@ -1,17 +1,16 @@
-import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as loginActionCreators from './LoginActionCreators';
-import Home from './Home';
+import React from 'react'
+import { ActivityIndicator, StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as loginActionCreators from './LoginActionCreators'
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props); 
+  constructor (props) {
+    super(props)
   }
 
-  render() {
-    const {isRunning, token, errorMessage, actions} = this.props;
+  render () {
+    const {isRunning, errorMessage, actions} = this.props
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -34,7 +33,7 @@ class Login extends React.Component {
           onChangeText={(password) => this.setState({password})}
         />
         <Button
-        onPress={ () => actions.loginAsync(this.state.username, this.state.password) }
+          onPress={ () => actions.loginAsync(this.state.username, this.state.password) }
           title="Login"
         />
         <Text>{errorMessage}</Text>
@@ -48,21 +47,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    justifyContent: 'center'
+  }
+})
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps (state, ownProps) {
   return {
     ...ownProps,
     isRunning: state.loginState.isRunning,
-    token: state.loginState.token,
-    errorMessage: state.loginState.errorMessage,
+    errorMessage: state.loginState.errorMessage
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return { actions: bindActionCreators(loginActionCreators, dispatch) }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

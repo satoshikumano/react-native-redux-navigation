@@ -1,11 +1,11 @@
-export function login(loginState = {}, action) {
-  if (action.type === "LOGIN_START") {
+export function login (loginState = {}, action) {
+  if (action.type === 'LOGIN_START') {
     return {
       ...loginState,
       isRunning: true
     }
   }
-  if (action.type === "LOGIN_DONE") {
+  if (action.type === 'LOGIN_DONE') {
     return {
       ...loginState,
       token: action.token,
@@ -13,14 +13,14 @@ export function login(loginState = {}, action) {
       isRunning: false
     }
   }
-  if (action.type === "LOGIN_ERROR") {
+  if (action.type === 'LOGIN_ERROR') {
     return {
       ...loginState,
-      token: "",
+      token: '',
       errorMessage: action.errorMessage,
       isRunning: false
     }
   } else {
-    return loginState;
+    return loginState
   }
 }
